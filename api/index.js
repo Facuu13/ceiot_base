@@ -1,3 +1,5 @@
+console.log("Iniciando API...");
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const {MongoClient} = require("mongodb");
@@ -12,9 +14,11 @@ let database = null;
 const collectionName = "measurements";
 
 async function startDatabase() {
+    console.log("Conectándose a MongoDB...");
     const uri = "mongodb://localhost:27017/?maxPoolSize=20&w=majority";	
     const connection = await MongoClient.connect(uri, {useNewUrlParser: true});
     database = connection.db();
+    console.log("Conexión establecida.");
 }
 
 async function getDatabase() {
@@ -23,6 +27,7 @@ async function getDatabase() {
 }
 
 async function insertMeasurement(message) {
+    console.log("Insertando una nueva medición en la base de datos...");
     const {insertedId} = await database.collection(collectionName).insertOne(message);
     return insertedId;
 }
@@ -42,12 +47,14 @@ app.use(express.static('spa/static'));
 const PORT = 8080;
 
 app.post('/measurement', function (req, res) {
+    console.log("Recibida solicitud POST en /measurement");
 -       console.log("device id    : " + req.body.id + " key         : " + req.body.key + " temperature : " + req.body.t + " humidity    : " + req.body.h);	
     const {insertedId} = insertMeasurement({id:req.body.id, t:req.body.t, h:req.body.h});
 	res.send("received measurement into " +  insertedId);
 });
 
 app.post('/device', function (req, res) {
+    console.log("Recibida solicitud POST en /device");
 	console.log("device id    : " + req.body.id + " name        : " + req.body.n + " key         : " + req.body.k );
 
     db.public.none("INSERT INTO devices VALUES ('"+req.body.id+ "', '"+req.body.n+"', '"+req.body.k+"')");
@@ -56,6 +63,7 @@ app.post('/device', function (req, res) {
 
 
 app.get('/web/device', function (req, res) {
+    console.log("Recibida solicitud GET en /web/device");
 	var devices = db.public.many("SELECT * FROM devices").map( function(device) {
 		console.log(device);
 		return '<tr><td><a href=/web/device/'+ device.device_id +'>' + device.device_id + "</a>" +
@@ -74,6 +82,7 @@ app.get('/web/device', function (req, res) {
 });
 
 app.get('/web/device/:id', function (req,res) {
+    console.log("Recibida solicitud GET en /web/device/" + req.params.id);
     var template = "<html>"+
                      "<head><title>Sensor {{name}}</title></head>" +
                      "<body>" +
@@ -91,6 +100,7 @@ app.get('/web/device/:id', function (req,res) {
 
 
 app.get('/term/device/:id', function (req, res) {
+    console.log("Recibida solicitud GET en /term/device/" + req.params.id);
     var red = "\33[31m";
     var green = "\33[32m";
     var blue = "\33[33m";
@@ -123,11 +133,15 @@ startDatabase().then(async() => {
     console.log("mongo measurement database Up");
 
     db.public.none("CREATE TABLE devices (device_id VARCHAR, name VARCHAR, key VARCHAR)");
+    console.log("Se creo la tabla 'devices' en la base de datos.");
     db.public.none("INSERT INTO devices VALUES ('00', 'Fake Device 00', '123456')");
     db.public.none("INSERT INTO devices VALUES ('01', 'Fake Device 01', '234567')");
+    console.log("Se insertaron los primeros datos de dispositivos.");
     db.public.none("CREATE TABLE users (user_id VARCHAR, name VARCHAR, key VARCHAR)");
+    console.log("Se creo la tabla 'users' en la base de datos.");
     db.public.none("INSERT INTO users VALUES ('1','Ana','admin123')");
     db.public.none("INSERT INTO users VALUES ('2','Beto','user123')");
+    console.log("Se insertaron los primeros datos de usuarios.");
 
     console.log("sql device database up");
 
