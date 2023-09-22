@@ -9,7 +9,7 @@ const db = PgMem.newDb();
 
     const render = require("./render.js");
 // Measurements database setup and access
-
+// se agrego el timestamp para visualizar en la pagina web
 let database = null;
 const collectionName = "measurements";
 
@@ -28,7 +28,9 @@ async function getDatabase() {
 
 async function insertMeasurement(message) {
     console.log("Insertando una nueva medición en la base de datos...");
-    const {insertedId} = await database.collection(collectionName).insertOne(message);
+    const timestamp = new Date();
+    const measurement = { id: message.id, t: message.t, h: message.h, timestamp: timestamp };
+    const { insertedId } = await database.collection(collectionName).insertOne(measurement);
     return insertedId;
 }
 
@@ -54,64 +56,76 @@ app.post('/measurement', function (req, res) {
 });
 
 app.post('/device', function (req, res) {
+    //temp = tomar_temp(city)
     console.log("Recibida solicitud POST en /device");
 	console.log("device id    : " + req.body.id + " name        : " + req.body.n + " key         : " + req.body.k );
 
     db.public.none("INSERT INTO devices VALUES ('"+req.body.id+ "', '"+req.body.n+"', '"+req.body.k+"')");
 	res.send("received new device");
 });
+/*
+tomar_temp(city){
+    app.post()
+    return temp
 
-
+*/
 app.get('/web/device', function (req, res) {
     console.log("Recibida solicitud GET en /web/device");
-	var devices = db.public.many("SELECT * FROM devices").map( function(device) {
-		console.log(device);
-		return '<tr><td><a href=/web/device/'+ device.device_id +'>' + device.device_id + "</a>" +
-			       "</td><td>"+ device.name+"</td><td>"+ device.key+"</td></tr>";
-	   }
-	);
-	res.send("<html>"+
-		     "<head><title>Sensores</title></head>" +
-		     "<body>" +
-		        "<table border=\"1\">" +
-		           "<tr><th>id</th><th>name</th><th>key</th></tr>" +
-		           devices +
-		        "</table>" +
-		     "</body>" +
-		"</html>");
+    var devices = db.public.many("SELECT device_id, name, key, timestamp FROM devices").map(function (device) {
+        console.log(device);
+        return '<tr><td><a href=/web/device/' + device.device_id + '>' + device.device_id + "</a>" +
+            "</td><td>" + device.name + "</td><td>" + device.key + "</td><td>" + device.timestamp + "</td></tr>";
+    });
+    res.send("<html>" +
+            "<head><title>Sensores</title></head>" +
+            "<body>" +
+                "<table border=\"1\">" +
+                    "<tr><th>id</th><th>name</th><th>key</th><th>timestamp</th></tr>" + // Agregamos el encabezado para el timestamp
+                    devices +
+                "</table>" +
+            "</body>" +
+        "</html>");
 });
 
-app.get('/web/device/:id', function (req,res) {
+
+app.get('/web/device/:id', function (req, res) {
     console.log("Recibida solicitud GET en /web/device/" + req.params.id);
-    var template = "<html>"+
-                     "<head><title>Sensor {{name}}</title></head>" +
-                     "<body>" +
-		        "<h1>{{ name }}</h1>"+
-		        "id  : {{ id }}<br/>" +
-		        "Key : {{ key }}" +
-                     "</body>" +
-                "</html>";
+    var template = "<html>" +
+                    "<head><title>Sensor {{name}}</title></head>" +
+                    "<body>" +
+                "<h1>{{ name }}</h1>" +
+            "id  : {{ id }}<br/>" +
+            "Key : {{ key }}" +
+            "<br/>Timestamp: {{ timestamp }}" + // Agregamos el campo de timestamp 
+                "</body>" +
+        "</html>";
 
-
-    var device = db.public.many("SELECT * FROM devices WHERE device_id = '"+req.params.id+"'");
+    var device = db.public.many("SELECT device_id, name, key, timestamp FROM devices WHERE device_id = '" + req.params.id + "'");
     console.log(device);
-    res.send(render(template,{id:device[0].device_id, key: device[0].key, name:device[0].name}));
+    res.send(render(template, { id: device[0].device_id, key: device[0].key, name: device[0].name, timestamp: device[0].timestamp }));
 });	
 
 
 app.get('/term/device/:id', function (req, res) {
     console.log("Recibida solicitud GET en /term/device/" + req.params.id);
-    var red = "\33[31m";
-    var green = "\33[32m";
-    var blue = "\33[33m";
-    var reset = "\33[0m";
-    var template = "Device name " + red   + "   {{name}}" + reset + "\n" +
-		   "       id   " + green + "       {{ id }} " + reset +"\n" +
-	           "       key  " + blue  + "  {{ key }}" + reset +"\n";
-    var device = db.public.many("SELECT * FROM devices WHERE device_id = '"+req.params.id+"'");
+    var red = "\x1b[31m"; // Color rojo
+    var green = "\x1b[32m"; // Color verde
+    var blue = "\x1b[34m"; // Color azul
+    var violet = "\x1b[35m"; // Color morado para el timestamp
+    var reset = "\x1b[0m"; // Restablecer el color
+
+    var template = "Device name " + red + "{{name}}" + reset + "\n" +
+                   "       id   " + green + "{{ id }}" + reset + "\n" +
+                   "       key  " + blue + "{{ key }}" + reset + "\n" +
+                   "       timestamp: " + violet + "{{ timestamp }}" + reset + "\n"; // Asignamos un color diferente al campo de timestamp
+
+    var device = db.public.many("SELECT * FROM devices WHERE device_id = '" + req.params.id + "'");
     console.log(device);
-    res.send(render(template,{id:device[0].device_id, key: device[0].key, name:device[0].name}));
+    res.send(render(template, { id: device[0].device_id, key: device[0].key, name: device[0].name, timestamp: device[0].timestamp }));
 });
+
+
+
 
 app.get('/measurement', async (req,res) => {
     res.send(await getMeasurements());
@@ -132,7 +146,7 @@ startDatabase().then(async() => {
     await insertMeasurement({id:'01', t:'17', h:'77'});
     console.log("mongo measurement database Up");
 
-    db.public.none("CREATE TABLE devices (device_id VARCHAR, name VARCHAR, key VARCHAR)");
+    db.public.none("CREATE TABLE devices (device_id VARCHAR, name VARCHAR, key VARCHAR, timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP)");
     console.log("Se creo la tabla 'devices' en la base de datos.");
     db.public.none("INSERT INTO devices VALUES ('00', 'Fake Device 00', '123456')");
     db.public.none("INSERT INTO devices VALUES ('01', 'Fake Device 01', '234567')");
