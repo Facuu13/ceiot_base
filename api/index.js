@@ -71,38 +71,38 @@ tomar_temp(city){
 */
 app.get('/web/device', function (req, res) {
     console.log("Recibida solicitud GET en /web/device");
-	var devices = db.public.many("SELECT * FROM devices").map( function(device) {
-		console.log(device);
-		return '<tr><td><a href=/web/device/'+ device.device_id +'>' + device.device_id + "</a>" +
-			       "</td><td>"+ device.name+"</td><td>"+ device.key+"</td></tr>";
-	   }
-	);
-	res.send("<html>"+
-		     "<head><title>Sensores</title></head>" +
-		     "<body>" +
-		        "<table border=\"1\">" +
-		           "<tr><th>id</th><th>name</th><th>key</th></tr>" +
-		           devices +
-		        "</table>" +
-		     "</body>" +
-		"</html>");
+    var devices = db.public.many("SELECT device_id, name, key, timestamp FROM devices").map(function (device) {
+        console.log(device);
+        return '<tr><td><a href=/web/device/' + device.device_id + '>' + device.device_id + "</a>" +
+            "</td><td>" + device.name + "</td><td>" + device.key + "</td><td>" + device.timestamp + "</td></tr>";
+    });
+    res.send("<html>" +
+            "<head><title>Sensores</title></head>" +
+            "<body>" +
+                "<table border=\"1\">" +
+                    "<tr><th>id</th><th>name</th><th>key</th><th>timestamp</th></tr>" + // Agregamos el encabezado para el timestamp
+                    devices +
+                "</table>" +
+            "</body>" +
+        "</html>");
 });
 
-app.get('/web/device/:id', function (req,res) {
+
+app.get('/web/device/:id', function (req, res) {
     console.log("Recibida solicitud GET en /web/device/" + req.params.id);
-    var template = "<html>"+
-                     "<head><title>Sensor {{name}}</title></head>" +
-                     "<body>" +
-		        "<h1>{{ name }}</h1>"+
-		        "id  : {{ id }}<br/>" +
-		        "Key : {{ key }}" +
-                     "</body>" +
-                "</html>";
+    var template = "<html>" +
+                    "<head><title>Sensor {{name}}</title></head>" +
+                    "<body>" +
+                "<h1>{{ name }}</h1>" +
+            "id  : {{ id }}<br/>" +
+            "Key : {{ key }}" +
+            "<br/>Timestamp: {{ timestamp }}" + // Agregamos el campo de timestamp 
+                "</body>" +
+        "</html>";
 
-
-    var device = db.public.many("SELECT * FROM devices WHERE device_id = '"+req.params.id+"'");
+    var device = db.public.many("SELECT device_id, name, key, timestamp FROM devices WHERE device_id = '" + req.params.id + "'");
     console.log(device);
-    res.send(render(template,{id:device[0].device_id, key: device[0].key, name:device[0].name}));
+    res.send(render(template, { id: device[0].device_id, key: device[0].key, name: device[0].name, timestamp: device[0].timestamp }));
 });	
 
 
@@ -139,7 +139,7 @@ startDatabase().then(async() => {
     await insertMeasurement({id:'01', t:'17', h:'77'});
     console.log("mongo measurement database Up");
 
-    db.public.none("CREATE TABLE devices (device_id VARCHAR, name VARCHAR, key VARCHAR)");
+    db.public.none("CREATE TABLE devices (device_id VARCHAR, name VARCHAR, key VARCHAR, timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP)");
     console.log("Se creo la tabla 'devices' en la base de datos.");
     db.public.none("INSERT INTO devices VALUES ('00', 'Fake Device 00', '123456')");
     db.public.none("INSERT INTO devices VALUES ('01', 'Fake Device 01', '234567')");
