@@ -108,17 +108,24 @@ app.get('/web/device/:id', function (req, res) {
 
 app.get('/term/device/:id', function (req, res) {
     console.log("Recibida solicitud GET en /term/device/" + req.params.id);
-    var red = "\33[31m";
-    var green = "\33[32m";
-    var blue = "\33[33m";
-    var reset = "\33[0m";
-    var template = "Device name " + red   + "   {{name}}" + reset + "\n" +
-		   "       id   " + green + "       {{ id }} " + reset +"\n" +
-	           "       key  " + blue  + "  {{ key }}" + reset +"\n";
-    var device = db.public.many("SELECT * FROM devices WHERE device_id = '"+req.params.id+"'");
+    var red = "\x1b[31m"; // Color rojo
+    var green = "\x1b[32m"; // Color verde
+    var blue = "\x1b[34m"; // Color azul
+    var violet = "\x1b[35m"; // Color morado para el timestamp
+    var reset = "\x1b[0m"; // Restablecer el color
+
+    var template = "Device name " + red + "{{name}}" + reset + "\n" +
+                   "       id   " + green + "{{ id }}" + reset + "\n" +
+                   "       key  " + blue + "{{ key }}" + reset + "\n" +
+                   "       timestamp: " + violet + "{{ timestamp }}" + reset + "\n"; // Asignamos un color diferente al campo de timestamp
+
+    var device = db.public.many("SELECT * FROM devices WHERE device_id = '" + req.params.id + "'");
     console.log(device);
-    res.send(render(template,{id:device[0].device_id, key: device[0].key, name:device[0].name}));
+    res.send(render(template, { id: device[0].device_id, key: device[0].key, name: device[0].name, timestamp: device[0].timestamp }));
 });
+
+
+
 
 app.get('/measurement', async (req,res) => {
     res.send(await getMeasurements());
