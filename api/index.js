@@ -28,7 +28,9 @@ async function getDatabase() {
 
 async function insertMeasurement(message) {
     console.log("Insertando una nueva medición en la base de datos...");
-    const {insertedId} = await database.collection(collectionName).insertOne(message);
+    const timestamp = new Date();
+    const measurement = { id: message.id, t: message.t, h: message.h, timestamp: timestamp };
+    const { insertedId } = await database.collection(collectionName).insertOne(measurement);
     return insertedId;
 }
 
@@ -54,14 +56,19 @@ app.post('/measurement', function (req, res) {
 });
 
 app.post('/device', function (req, res) {
+    //temp = tomar_temp(city)
     console.log("Recibida solicitud POST en /device");
 	console.log("device id    : " + req.body.id + " name        : " + req.body.n + " key         : " + req.body.k );
 
     db.public.none("INSERT INTO devices VALUES ('"+req.body.id+ "', '"+req.body.n+"', '"+req.body.k+"')");
 	res.send("received new device");
 });
+/*
+tomar_temp(city){
+    app.post()
+    return temp
 
-
+*/
 app.get('/web/device', function (req, res) {
     console.log("Recibida solicitud GET en /web/device");
 	var devices = db.public.many("SELECT * FROM devices").map( function(device) {
