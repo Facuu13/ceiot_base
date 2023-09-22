@@ -9,7 +9,7 @@ const db = PgMem.newDb();
 
     const render = require("./render.js");
 // Measurements database setup and access
-
+// se agrego el timestamp para visualizar en la pagina web
 let database = null;
 const collectionName = "measurements";
 
