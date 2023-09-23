@@ -16,7 +16,7 @@ ciudades=("Buenos+Aires" "Cordoba" "Rosario" "Mendoza" "La+Plata" "Mar+del+Plata
 # Elegir una ciudad aleatoria de la lista
 ciudad_aleatoria=${ciudades[$RANDOM % ${#ciudades[@]}]} # Me va a generar un numero aleatorio entre 0 y la cantidad de ciudades
 
-# Realiza una solicitud GET de prueba a la API de OpenWeatherMap con la ciudad aleatoria
+# Realizamos una solicitud GET a la API de OpenWeatherMap con la ciudad aleatoria
 response=$(curl -s "http://api.openweathermap.org/data/2.5/forecast?q=$ciudad_aleatoria&appid=$API_KEY") # -s para no mostrar informacion adicional
 # En response se almacena la respuesta de la solicitud
 
@@ -31,10 +31,10 @@ if [ $? -eq 0 ]; then
 
     # Verificamos si la temperatura tiene un valor asignado y no está vacía
     if [ -n "$temperatura_celsius" ]; then
-        # Convertimos la temperatura a Celsius y la obtenemos con dos decimales
+        # Convertimos la temperatura a Celsius.
         # bc se utiliza en esta línea para calcular la expresión matemática, 
         temperatura_celsius=$(echo "$temperatura_celsius - 273.15" | bc)
-        temperatura_celsius=${temperatura_celsius%.*} #elimina los decimales y lo almacena como un número entero
+        temperatura_celsius=${temperatura_celsius%.*} #eliminamos los decimales y lo almacenamos como un número entero
     else
         echo "Error: No se pudo obtener la temperatura."
         exit 1
@@ -42,7 +42,7 @@ if [ $? -eq 0 ]; then
 
     # Extraemos la humedad de la respuesta
     humedad=$(echo "$response" | jq -r '.list[0].main.humidity')
-    # # Verificamos si la variable humedad tiene un valor asignado y no está vacía
+    # Verificamos si la variable humedad tiene un valor asignado y no está vacía
     if [ -n "$humedad" ]; then
         true
     else
@@ -53,7 +53,7 @@ if [ $? -eq 0 ]; then
     # Mostramos el clima actual en la ciudad que salio
     echo "El clima actual en $ciudad_aleatoria: temp:$temperatura_celsius°C y hum:$humedad%" 
 
-    # Realizar una solicitud POST con el valor de temperatura
+    # Realizamos una solicitud POST
     wget -O - --method=POST http://localhost:8080/measurement --body-data="id=$1&t=$temperatura_celsius&h=$humedad"
     
 else
