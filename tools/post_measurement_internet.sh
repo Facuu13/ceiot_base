@@ -7,7 +7,7 @@ if [ $# -ne 1 ]; then
     exit 1
 fi
 
-# Tu clave de API de OpenWeatherMap
+# Clave API de OpenWeatherMap
 API_KEY="2287fb577d35a990fdbaa47ff609c6f4"
 
 # Lista de ciudades para elegir aleatoriamente
@@ -29,16 +29,27 @@ if [ $? -eq 0 ]; then
     # La opción -r se usa para obtener el valor de manera "cruda", lo que significa que elimina 
     # cualquier formato adicional alrededor del valor que se extrae del documento JSON
 
+    # Verificamos si la temperatura tiene un valor asignado y no está vacía
+    if [ -n "$temperatura_celsius" ]; then
+        # Convertimos la temperatura a Celsius y la obtenemos con dos decimales
+        # bc se utiliza en esta línea para calcular la expresión matemática, 
+        temperatura_celsius=$(echo "$temperatura_celsius - 273.15" | bc)
+        temperatura_celsius=${temperatura_celsius%.*} #elimina los decimales y lo almacena como un número entero
+    else
+        echo "Error: No se pudo obtener la temperatura."
+        exit 1
+    fi
+
     # Extraemos la humedad de la respuesta
     humedad=$(echo "$response" | jq -r '.list[0].main.humidity')
+    # # Verificamos si la variable humedad tiene un valor asignado y no está vacía
+    if [ -n "$humedad" ]; then
+        true
+    else
+        echo "Error: No se pudo obtener la humedad."
+        exit 1
+    fi
     
-    
-    # Convertir la temperatura a Celsius
-    temperatura_celsius=$(echo "scale=2; $temperatura_celsius - 273.15" | bc)
-    #scale se usa para que el resultado tenga en este caso 2 decimales.
-    # bc se utiliza en esta línea para calcular la expresión matemática, 
-    # asegurando que el resultado tenga una precisión de 2 decimales
-
     # Mostramos el clima actual en la ciudad que salio
     echo "El clima actual en $ciudad_aleatoria: temp:$temperatura_celsius°C y hum:$humedad%" 
 
