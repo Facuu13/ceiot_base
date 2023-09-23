@@ -22,14 +22,19 @@ if [ $? -eq 0 ]; then
     # La opción -r se usa para obtener el valor de manera "cruda", lo que significa que elimina 
     # cualquier formato adicional alrededor del valor que se extrae del documento JSON
     
+    
     # Convertir la temperatura a Celsius
     temperatura_celsius=$(echo "scale=2; $temperatura_celsius - 273.15" | bc)
     #scale se usa para que el resultado tenga en este caso 2 decimales.
     # bc se utiliza en esta línea para calcular la expresión matemática, 
     # asegurando que el resultado tenga una precisión de 2 decimales
-    
+
     # Mostrar la temperatura y la ciudad
     echo "Temperatura actual en $ciudad_aleatoria: $temperatura_celsius°C"
+
+    # Realizar una solicitud POST con el valor de temperatura
+    wget -O - --method=POST http://localhost:8080/measurement --body-data="id=$1&t=$temperatura_celsius&h=$2"
+    
 else
     echo "Error al realizar la solicitud a la API de OpenWeatherMap."
 fi
