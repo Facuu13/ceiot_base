@@ -56,10 +56,11 @@ app.post('/measurement', function (req, res) {
 });
 
 app.post('/device', function (req, res) {
+    const timestamp = new Date(); // Genera una marca de tiempo única
     console.log("Recibida solicitud POST en /device");
-	console.log("device id    : " + req.body.id + " name        : " + req.body.n + " key         : " + req.body.k + " temperature         : " + req.body.t );
+	console.log("device id    : " + req.body.id + " name        : " + req.body.n + " key         : " + req.body.k + " temperature         : " + req.body.t);
 
-    db.public.none("INSERT INTO devices VALUES ('"+req.body.id+ "', '"+req.body.n+"', '"+req.body.k+"', '"+req.body.t+"')");
+    db.public.none("INSERT INTO devices VALUES ('"+req.body.id+ "', '"+req.body.n+"', '"+req.body.k+"', '"+req.body.t+"', '" + timestamp.toISOString() + "')");
 	res.send("received new device");
 });
 
