@@ -65,16 +65,16 @@ app.post('/device', function (req, res) {
 
 app.get('/web/device', function (req, res) {
     console.log("Recibida solicitud GET en /web/device");
-    var devices = db.public.many("SELECT device_id, name, key, timestamp FROM devices").map(function (device) {
+    var devices = db.public.many("SELECT device_id, name, key, temperature, timestamp FROM devices").map(function (device) {
         console.log(device);
         return '<tr><td><a href=/web/device/' + device.device_id + '>' + device.device_id + "</a>" +
-            "</td><td>" + device.name + "</td><td>" + device.key + "</td><td>" + device.timestamp + "</td></tr>";
+            "</td><td>" + device.name + "</td><td>" + device.key + "</td><td>" + device.temperature + "</td><td>" + device.timestamp + "</td></tr>";
     });
     res.send("<html>" +
             "<head><title>Sensores</title></head>" +
             "<body>" +
                 "<table border=\"1\">" +
-                    "<tr><th>id</th><th>name</th><th>key</th><th>timestamp</th></tr>" + // Agregamos el encabezado para el timestamp
+                    "<tr><th>id</th><th>name</th><th>key</th><th>temperature</th><th>timestamp</th></tr>" + // Agregamos el encabezado para el timestamp
                     devices +
                 "</table>" +
             "</body>" +
@@ -89,14 +89,15 @@ app.get('/web/device/:id', function (req, res) {
                     "<body>" +
                 "<h1>{{ name }}</h1>" +
             "id  : {{ id }}<br/>" +
-            "Key : {{ key }}" +
+            "Key : {{ key }}<br/>" +
+            "Temperature : {{ temperature }}" + // Agregamos el campo temperature
             "<br/>Timestamp: {{ timestamp }}" + // Agregamos el campo de timestamp 
                 "</body>" +
         "</html>";
 
-    var device = db.public.many("SELECT device_id, name, key, timestamp FROM devices WHERE device_id = '" + req.params.id + "'");
+    var device = db.public.many("SELECT device_id, name, key, temperature, timestamp FROM devices WHERE device_id = '" + req.params.id + "'");
     console.log(device);
-    res.send(render(template, { id: device[0].device_id, key: device[0].key, name: device[0].name, timestamp: device[0].timestamp }));
+    res.send(render(template, { id: device[0].device_id, key: device[0].key, name: device[0].name, temperature: device[0].temperature, timestamp: device[0].timestamp }));
 });	
 
 
@@ -104,18 +105,20 @@ app.get('/term/device/:id', function (req, res) {
     console.log("Recibida solicitud GET en /term/device/" + req.params.id);
     var red = "\x1b[31m"; // Color rojo
     var green = "\x1b[32m"; // Color verde
+    var yellow = "\x1b[33m"; // Color amarillo
     var blue = "\x1b[34m"; // Color azul
-    var violet = "\x1b[35m"; // Color violeta para el timestamp
+    var violet = "\x1b[35m"; // Color violeta 
     var reset = "\x1b[0m"; // Restablecer el color
 
     var template = "Device name " + red + "{{name}}" + reset + "\n" +
                    "       id   " + green + "{{ id }}" + reset + "\n" +
                    "       key  " + blue + "{{ key }}" + reset + "\n" +
+                   "       temperature  " + yellow + "{{ temperature }}" + reset + "\n" +
                    "       timestamp: " + violet + "{{ timestamp }}" + reset + "\n"; // Asignamos un color diferente al campo de timestamp
 
     var device = db.public.many("SELECT * FROM devices WHERE device_id = '" + req.params.id + "'");
     console.log(device);
-    res.send(render(template, { id: device[0].device_id, key: device[0].key, name: device[0].name, timestamp: device[0].timestamp }));
+    res.send(render(template, { id: device[0].device_id, key: device[0].key, name: device[0].name, temperature: device[0].temperature ,timestamp: device[0].timestamp }));
 });
 
 
