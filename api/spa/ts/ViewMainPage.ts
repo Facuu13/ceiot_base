@@ -25,6 +25,7 @@ class ViewMainPage {
             <span class="title">${device.name}</span>
             <p>id: ${device.device_id}</p>
             <p>key: ${device.key}</p>
+            <p>temperature: ${device.temperature}°C</p>
             <p>timestamp: ${formatearFecha}</p>
           </li>  
           `;
