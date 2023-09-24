@@ -74,7 +74,7 @@ app.get('/web/device', function (req, res) {
             "<head><title>Sensores</title></head>" +
             "<body>" +
                 "<table border=\"1\">" +
-                    "<tr><th>id</th><th>name</th><th>key</th><th>temperature</th><th>timestamp</th></tr>" + // Agregamos el encabezado para el timestamp
+                    "<tr><th>id</th><th>name</th><th>key</th><th>temperature(°C)</th><th>timestamp</th></tr>" + 
                     devices +
                 "</table>" +
             "</body>" +
@@ -90,7 +90,7 @@ app.get('/web/device/:id', function (req, res) {
                 "<h1>{{ name }}</h1>" +
             "id  : {{ id }}<br/>" +
             "Key : {{ key }}<br/>" +
-            "Temperature : {{ temperature }}" + // Agregamos el campo temperature
+            "Temperature(°C) : {{ temperature }}" + // Agregamos el campo temperature
             "<br/>Timestamp: {{ timestamp }}" + // Agregamos el campo de timestamp 
                 "</body>" +
         "</html>";
@@ -113,7 +113,7 @@ app.get('/term/device/:id', function (req, res) {
     var template = "Device name " + red + "{{name}}" + reset + "\n" +
                    "       id   " + green + "{{ id }}" + reset + "\n" +
                    "       key  " + blue + "{{ key }}" + reset + "\n" +
-                   "       temperature  " + yellow + "{{ temperature }}" + reset + "\n" +
+                   "       temperature(°C)  " + yellow + "{{ temperature }}" + reset + "\n" +
                    "       timestamp: " + violet + "{{ timestamp }}" + reset + "\n"; // Asignamos un color diferente al campo de timestamp
 
     var device = db.public.many("SELECT * FROM devices WHERE device_id = '" + req.params.id + "'");
