@@ -38,6 +38,8 @@ class ViewMainPage {
     // Creamos el boton para editar
     const buttonEditar = document.createElement("button"); 
     buttonEditar.textContent = "Editar";
+    buttonEditar.style.transform = "translate(1500%,-300%)";
+    
 
     buttonEditar.onclick = () => { //cuando hacemos clic llama a la funcion
       this.EditarDevice(device);
@@ -46,6 +48,7 @@ class ViewMainPage {
     // Creamos el boton para eliminar
     const buttonEliminar = document.createElement("button");
     buttonEliminar.textContent = "Eliminar";
+    buttonEliminar.style.transform = "translate(1180%,-300%)";
 
     // Asignar una función onclick al botón que utiliza el objeto device como parámetro
     buttonEliminar.onclick = () => {
