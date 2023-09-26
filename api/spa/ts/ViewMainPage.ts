@@ -40,8 +40,8 @@ class ViewMainPage {
     buttonEditar.textContent = "Editar";
     buttonEditar.style.transform = "translate(1500%,-300%)";
     
-
-    buttonEditar.onclick = () => { //cuando hacemos clic llama a la funcion
+    //cuando hacemos clic llama a la funcion
+    buttonEditar.onclick = () => { 
       this.EditarDevice(device);
     };
 
@@ -50,7 +50,7 @@ class ViewMainPage {
     buttonEliminar.textContent = "Eliminar";
     buttonEliminar.style.transform = "translate(1180%,-300%)";
 
-    // Asignar una función onclick al botón que utiliza el objeto device como parámetro
+    //cuando hacemos clic llama a la funcion
     buttonEliminar.onclick = () => {
       this.EliminarDevice(device.device_id);
     };
