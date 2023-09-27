@@ -48,6 +48,22 @@ app.use(express.static('spa/static'));
 
 const PORT = 8080;
 
+app.delete('/device/:id', function (req, res) {
+    console.log("Recibida solicitud DELETE");
+    //Primero verificamos que exista el ID_device
+    const device = db.public.one("SELECT device_id FROM devices WHERE device_id = '" + req.params.id + "'");
+    //Sino existe devolvemos un mensaje de error
+    if (!device) {
+        console.log("El dispositivo no existe.")
+        return res.status(404).send("El dispositivo no existe.");
+    }
+    
+    //Si existe el ID en la tabla, eliminamos el device
+    db.public.none("DELETE FROM devices WHERE device_id = '" + req.params.id + "'");
+    console.log("Se elimino el device: '" + req.params.id + "'")
+    res.send("Se elimino el device correctamente");
+});
+
 app.post('/measurement', function (req, res) {
     console.log("Recibida solicitud POST en /measurement");
 -       console.log("device id    : " + req.body.id + " key         : " + req.body.key + " temperature : " + req.body.t + " humidity    : " + req.body.h);	
