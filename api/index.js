@@ -50,6 +50,7 @@ const PORT = 8080;
 
 app.put('/device/:id', function (req, res) {
     console.log("Recibida solicitud PUT");
+    const timestamp = new Date()
     //Primero verificamos que exista el ID_device
     const device = db.public.one("SELECT device_id FROM devices WHERE device_id = '" + req.params.id + "'");
     //Sino existe devolvemos un mensaje de error
@@ -59,7 +60,7 @@ app.put('/device/:id', function (req, res) {
     }
 
 
-    db.public.none("UPDATE devices SET key = '" + req.body.key + "' WHERE device_id = '" + req.params.id + "'");
+    db.public.none("UPDATE devices SET key = '" + req.body.key + "', timestamp = '" + timestamp.toISOString() + "'  WHERE device_id = '" + req.params.id + "'");
     console.log("Se modifico el device: '" + req.params.id + "'")
     res.send("Se modifico el device correctamente");
     
