@@ -63,6 +63,69 @@ class ViewMainPage {
     e.appendChild(deviceDiv); //en este caso seria al ul
   }
 
+  agregarNuevoDevice(){
+    const newDevice = {
+      device_id: '',
+      name: '',
+      key: '',
+      temperature: 0,
+      timestamp: '',
+    };
+    newDevice.device_id = this.generarRandomId();
+    newDevice.key = this.generarRandomKey();
+    newDevice.name = "Nuevo Dispositivo " + newDevice.device_id;
+    newDevice.temperature = this.generarRandomTemperatura();
+    newDevice.timestamp = new Date().toString();
+    this.crearEstructuraNewDevice(newDevice);
+    
+  }
+
+  crearEstructuraNewDevice(newDevice){
+    let e: HTMLElement = document.getElementById("devicesList");
+    const fechaHora = new Date(newDevice.timestamp);
+    const formatearFecha = this.formatDateTime(fechaHora);
+    let image = "temp.png";
+       // Crear un div para cada dispositivo
+      const deviceDiv = document.createElement("div");
+      deviceDiv.id = newDevice.device_id; // el div que creamos le asignamos un id
+      deviceDiv.innerHTML += `<li class="collection-item avatar"> 
+            <img src="images/${image}" alt="" class="circle">
+            <span class="title">${newDevice.name}</span>
+            <p>id: ${newDevice.device_id}</p>
+            <p>key: ${newDevice.key}</p>
+            <p>temperature: ${newDevice.temperature}°C</p>
+            <p>timestamp: ${formatearFecha}</p>
+          </li>
+          `; //este li va estar dentro del div
+
+      this.CrearBotones(e,deviceDiv, newDevice);
+      // Crear un botón Editar dentro del div para cada dispositivo
+      
+
+  }
+
+  generarRandomKey(){
+    const min = 100000; // El número mínimo de 6 dígitos
+    const max = 999999; // El número máximo de 6 dígitos
+    const keyAleatorioa = Math.floor(Math.random() * (max - min + 1)) + min;
+    return keyAleatorioa.toString();
+  }
+
+  generarRandomId(){
+    const min = 10; // El valor mínimo (inclusive)
+    const max = 90; // El valor máximo (inclusive)
+    const rango = max - min + 1;
+    const idAleatorio = Math.floor(Math.random() * rango) + min;
+    return idAleatorio.toString();
+  }
+
+  generarRandomTemperatura() {
+    const min = -30; // El valor mínimo
+    const max = 45; // El valor máximo
+    const temperaturaAleatoria = Math.floor(Math.random() * (max - min + 1)) + min;
+    return temperaturaAleatoria;
+  }
+
   formatDateTime(dateTime: Date): string {
     // Obtener el día con dos digitos
     const dia = dateTime.getDate().toString().padStart(2, "0");

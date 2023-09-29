@@ -2,7 +2,7 @@ interface DeviceInt {
   device_id:string;
   name: string;
   key:string;
-  temperature: bigint;
+  temperature: number;
   timestamp: string;
 }
 
@@ -38,7 +38,7 @@ class Main implements EventListenerObject, GETResponseListener {
     }
 
     if (target.id=="BotonNewD") {
-      console.log("New device");
+      this.view.agregarNuevoDevice();
     }
    
   }
