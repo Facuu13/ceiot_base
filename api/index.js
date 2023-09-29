@@ -48,6 +48,25 @@ app.use(express.static('spa/static'));
 
 const PORT = 8080;
 
+app.put('/device/:id', function (req, res) {
+    console.log("Recibida solicitud PUT");
+    const timestamp = new Date()
+    //Primero verificamos que exista el ID_device
+    const device = db.public.one("SELECT device_id FROM devices WHERE device_id = '" + req.params.id + "'");
+    //Sino existe devolvemos un mensaje de error
+    if (!device) {
+        console.log("El dispositivo no existe.")
+        return res.status(404).send("El dispositivo no existe.");
+    }
+//
+
+    db.public.none("UPDATE devices SET key = '" + req.body.key + "', timestamp = '" + timestamp.toISOString() + "'  WHERE device_id = '" + req.params.id + "'");
+    console.log("Se modifico el device: '" + req.params.id + "'")
+    res.send("Se modifico el device correctamente");
+    
+});
+
+
 app.delete('/device/:id', function (req, res) {
     console.log("Recibida solicitud DELETE");
     //Primero verificamos que exista el ID_device
