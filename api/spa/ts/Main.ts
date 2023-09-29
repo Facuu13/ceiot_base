@@ -2,7 +2,7 @@ interface DeviceInt {
   device_id:string;
   name: string;
   key:string;
-  temperature: bigint;
+  temperature: number;
   timestamp: string;
 }
 
@@ -24,6 +24,7 @@ class Main implements EventListenerObject, GETResponseListener {
   main():void {
       this.api.requestGET("device",this);
       document.getElementById("boton").addEventListener("click",this);
+      document.getElementById("BotonNewD").addEventListener("click",this);
   }
 
   handleEvent(evt:Event):void{
@@ -34,6 +35,10 @@ class Main implements EventListenerObject, GETResponseListener {
     if (target.id=="boton") {
       this.api.requestGET("device",this);
       console.log("handling boton");
+    }
+
+    if (target.id=="BotonNewD") {
+      this.view.agregarNuevoDevice();
     }
    
   }

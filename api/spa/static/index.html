@@ -5,6 +5,7 @@
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
       <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="css/main.css">
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
@@ -20,8 +21,12 @@
         <br/>
            <div class="container">
             <a id="dispositivos"></a>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
             <h4>Dispositivos</h4>
+            <button id="BotonNewD" class="waves-effect waves-light btn" data-popup="nuevo-dispositivo">Agregar Nuevo Dispositivo</button>
+            </div>
             <ul class="collection" id="devicesList"> </ul>
+            
         </div>
         <div class="container">
             <a id="boton-refresco"></a>
