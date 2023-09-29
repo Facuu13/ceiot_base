@@ -58,7 +58,7 @@ app.put('/device/:id', function (req, res) {
         console.log("El dispositivo no existe.")
         return res.status(404).send("El dispositivo no existe.");
     }
-
+//
 
     db.public.none("UPDATE devices SET key = '" + req.body.key + "', timestamp = '" + timestamp.toISOString() + "'  WHERE device_id = '" + req.params.id + "'");
     console.log("Se modifico el device: '" + req.params.id + "'")
