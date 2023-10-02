@@ -35,4 +35,22 @@ class API{
     xhr.send(null);
   }
   
+  requestPOST(url: string, data: any, listener: GETResponseListener): void {
+    let xhr: XMLHttpRequest = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4) {
+        if (xhr.status == 201) {
+          // 201 Created indica que la creación se realizó con éxito
+          listener.handleGETResponse(xhr.status, xhr.responseText);
+        } else {
+          listener.handleGETResponse(xhr.status, null);
+        }
+      }
+    };
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); // Establece el tipo de contenido
+    const bodyData = `id=${data.device_id}&n=${data.name}&k=${data.key}&t=${data.temperature}`;
+    xhr.send(bodyData);
+  }
+
 }

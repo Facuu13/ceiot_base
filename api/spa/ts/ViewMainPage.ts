@@ -9,6 +9,10 @@ class ViewMainPage {
   showDevices(list: DeviceInt[], element: Main): void {
     let e: HTMLElement = document.getElementById("devicesList");
     e.innerHTML = "";
+    if (list === null || list === undefined) {
+      // Manejo de caso donde list es null o undefined
+      return;
+    }
     for (let device of list) {
       const fechaHora = new Date(device.timestamp);
       const formatearFecha = this.formatDateTime(fechaHora);
@@ -88,7 +92,8 @@ class ViewMainPage {
     newDevice.name = "Nuevo Dispositivo " + newDevice.device_id;
     newDevice.temperature = this.generarRandomTemperatura();
     newDevice.timestamp = new Date().toString();
-    this.crearEstructuraNewDevice(newDevice);
+    //this.crearEstructuraNewDevice(newDevice);
+    return newDevice;
     
   }
 

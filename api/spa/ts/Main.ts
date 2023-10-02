@@ -39,7 +39,9 @@ class Main implements EventListenerObject, GETResponseListener {
     }
 
     if (target.id=="BotonNewD") {
-      this.view.agregarNuevoDevice();
+      const nuevoDispositivo = this.view.agregarNuevoDevice();
+      this.api.requestPOST('/device', nuevoDispositivo, this);
+      this.api.requestGET("device",this); //refresh
     }
   }
 }
