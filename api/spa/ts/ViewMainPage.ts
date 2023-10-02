@@ -35,6 +35,7 @@ class ViewMainPage {
   EliminarDevice(id: string) {
     const miDiv = document.getElementById(id); //va a buscar el elemento por id
     if (miDiv) {
+      //miDiv.style.display = "none"; // ocultar el div por id
       //hacemos un delete del device seleccionado
       this.main.api.requestDELETE(`/device/${id}`, this.main);
       this.main.api.requestGET("device",this.main); //refresh
