@@ -99,6 +99,7 @@ class ViewMainPage {
   }
 
   agregarNuevoDevice(){
+    alert('Se van a ingresar los siguientes datos para un nuevo dispositivo:\n\n- ID*\n- Name*\n- Key*\n- Temperature(opcional, valor por defecto 0)\n\n * Campos Obligatorios');
     const newDevice = {
       device_id: '',
       name: '',
@@ -106,14 +107,21 @@ class ViewMainPage {
       temperature: 0,
       timestamp: '',
     };
-    newDevice.device_id = this.generarRandomId();
-    newDevice.key = this.generarRandomKey();
-    newDevice.name = "Nuevo Dispositivo " + newDevice.device_id;
-    newDevice.temperature = this.generarRandomTemperatura();
+    newDevice.device_id = prompt('Ingrese el ID del nuevo dispositivo:');
+    newDevice.name = prompt('Ingrese el nombre del nuevo dispositivo:');
+    newDevice.key = prompt('Ingrese la clave del nuevo dispositivo:');
+    //Puede no ingresar el valor de temperatura, sino lo hace se asigna un valor por defecto.
+    const temperaturaInput = prompt('Ingrese la temperatura del nuevo dispositivo (opcional):');
+    if (temperaturaInput !== null && temperaturaInput.trim() !== '') {
+      newDevice.temperature = parseInt(temperaturaInput);
+    }
     newDevice.timestamp = new Date().toString();
-    //this.crearEstructuraNewDevice(newDevice);
+  // Comprobar si el usuario canceló el ingreso de datos
+    if (newDevice.device_id === null || newDevice.name === null || newDevice.key === null) {
+      alert('Ingreso de datos cancelado. No se creará un nuevo dispositivo.');
+      return null;
+    } 
     return newDevice;
-    
   }
 
   crearEstructuraNewDevice(newDevice){
