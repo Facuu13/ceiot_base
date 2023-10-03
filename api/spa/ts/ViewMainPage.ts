@@ -47,7 +47,17 @@ class ViewMainPage {
   }
 
   EditarDevice(device) {
-    const miDiv = document.getElementById(device.device_id); //va a buscar el elemento por id
+    const miDiv = document.getElementById(device.device_id);
+    if (miDiv) {
+        // Generar nuevos datos aleatorios
+        //device.name = "Nuevo Dispositivo " + this.generarRandomId();
+        device.key = this.generarRandomKey();
+        //device.temperature = this.generarRandomTemperatura();
+        //device.timestamp = new Date().toString();
+    }
+    // Actualizar los datos en el servidor utilizando la API de Main con un PUT request
+    this.main.api.requestPUT(`/device/${device.device_id}`, device, this.main);
+    this.main.api.requestGET("device",this.main); //refresh
   }
 
   CrearBotones(e,deviceDiv, device){
