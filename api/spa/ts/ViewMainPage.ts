@@ -37,27 +37,36 @@ class ViewMainPage {
   }
 
   EliminarDevice(id: string) {
-    const miDiv = document.getElementById(id); //va a buscar el elemento por id
-    if (miDiv) {
-      //miDiv.style.display = "none"; // ocultar el div por id
-      //hacemos un delete del device seleccionado
-      this.main.api.requestDELETE(`/device/${id}`, this.main);
-      this.main.api.requestGET("device",this.main); //refresh
+    // Mostrar un mensaje de confirmación
+    const confirmDelete = window.confirm("¿Estás seguro de eliminar este dispositivo?");
+    
+    if (confirmDelete) {
+      // El usuario confirmó la eliminación, continuar con la eliminación
+      const miDiv = document.getElementById(id);
+      if (miDiv) {
+        // Hacer la solicitud de eliminación solo si el usuario confirmó
+        this.main.api.requestDELETE(`/device/${id}`, this.main);
+        this.main.api.requestGET("device", this.main); // Refresh
+      }
+    } else {
+      // El usuario canceló la eliminación, no hacer nada
     }
   }
 
   EditarDevice(device) {
-    const miDiv = document.getElementById(device.device_id);
-    if (miDiv) {
-        // Generar nuevos datos aleatorios
-        //device.name = "Nuevo Dispositivo " + this.generarRandomId();
+    // Mostrar un mensaje de confirmación
+    const confirmUpdate = window.confirm("¿Estás seguro de editar este dispositivo?");
+    if (confirmUpdate) {
+      const miDiv = document.getElementById(device.device_id);
+      if (miDiv) {
         device.key = this.generarRandomKey();
-        //device.temperature = this.generarRandomTemperatura();
-        //device.timestamp = new Date().toString();
+        // Actualizar los datos en el servidor utilizando la API de Main con un PUT request
+        this.main.api.requestPUT(`/device/${device.device_id}`, device, this.main);
+        this.main.api.requestGET("device",this.main); //refresh
+      }
+    } else {
+      // El usuario canceló el update, no hacer nada
     }
-    // Actualizar los datos en el servidor utilizando la API de Main con un PUT request
-    this.main.api.requestPUT(`/device/${device.device_id}`, device, this.main);
-    this.main.api.requestGET("device",this.main); //refresh
   }
 
   CrearBotones(e,deviceDiv, device){

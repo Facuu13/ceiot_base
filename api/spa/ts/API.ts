@@ -67,7 +67,6 @@ class API{
     xhr.open('PUT', url, true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); // Establece el tipo de contenido a JSON
     const bodyData = `id=${data.device_id}&key=${data.key}`;
-    console.log(bodyData);
     xhr.send(bodyData);
   }
 
