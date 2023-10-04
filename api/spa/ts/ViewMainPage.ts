@@ -59,7 +59,23 @@ class ViewMainPage {
     if (confirmUpdate) {
       const miDiv = document.getElementById(device.device_id);
       if (miDiv) {
-        device.key = this.generarRandomKey();
+        alert('Los campos a editar son:\n\n- Name\n- Key\n- Temperature')
+        
+        const newName = prompt(`Ingrese el nuevo nombre del dispositivo (dejar en blanco para mantener el actual):\nNombre actual: ${device.name}`);
+        if (newName !== null) {
+          device.name = newName || device.name;
+        }
+
+        const newKey = prompt(`Ingrese la nueva clave del dispositivo (dejar en blanco para mantener la actual):\nKey actual: ${device.key}`);
+        if (newKey !== null) {
+          device.key = newKey || device.key;
+        }
+
+        const newTemperature = prompt(`Ingrese la nueva temperatura del dispositivo (deje en blanco para mantener la actual):\nTemperatura actual: ${device.temperature}`);
+        if (newTemperature !== null) {
+          device.temperature = newTemperature || device.temperature;
+        }
+
         // Actualizar los datos en el servidor utilizando la API de Main con un PUT request
         this.main.api.requestPUT(`/device/${device.device_id}`, device, this.main);
         this.main.api.requestGET("device",this.main); //refresh
