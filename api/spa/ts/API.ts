@@ -5,6 +5,7 @@ interface GETResponseListener {
 class API{
 
   requestGET(url:string, listener: GETResponseListener):void {
+    // Se crea una instancia del objeto XMLHttpRequest, que se utiliza para hacer solicitudes HTTP.
     let xhr:XMLHttpRequest = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
       if(xhr.readyState == 4) {
@@ -15,7 +16,9 @@ class API{
         }
       }
     };
+    // Se abre la solicitud GET especificando la URL y configurando la solicitud como asíncrona (true).
     xhr.open('GET', url, true);
+    // Se envía la solicitud GET al servidor. En este caso, no se envían datos adicionales en el cuerpo de la solicitud, por lo que se pasa null.
     xhr.send(null);
   }
 
@@ -48,8 +51,14 @@ class API{
       }
     };
     xhr.open('POST', url, true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); // Establece el tipo de contenido
+    // Establece el tipo de contenido 
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); 
+    //Los datos se codifican en pares clave-valor, donde cada par se separa por el carácter "&"
+    //id=123&name=John&age=30
+
+    // Se crea una cadena bodyData que contiene los datos que se enviarán en el cuerpo de la solicitud.
     const bodyData = `id=${data.device_id}&n=${data.name}&k=${data.key}&t=${data.temperature}`;
+    // Se envía la solicitud POST al servidor con los datos en el cuerpo de la solicitud.
     xhr.send(bodyData);
   }
 
@@ -65,8 +74,9 @@ class API{
       }
     };
     xhr.open('PUT', url, true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); // Establece el tipo de contenido a JSON
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); 
     const bodyData = `id=${data.device_id}&name=${data.name}&key=${data.key}&temp=${data.temperature}`;
+     // Se envía la solicitud PUT al servidor con los datos en el cuerpo de la solicitud.
     xhr.send(bodyData);
   }
 
