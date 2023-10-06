@@ -1,7 +1,18 @@
 class ViewMainPage {
+
+  private main: Main; // Agrega una propiedad para almacenar la referencia a Main
+
+  constructor(main: Main) {
+    this.main = main;
+  }
+
   showDevices(list: DeviceInt[], element: Main): void {
     let e: HTMLElement = document.getElementById("devicesList");
     e.innerHTML = "";
+    if (list === null || list === undefined) {
+      // Manejo de caso donde list es null o undefined
+      return;
+    }
     for (let device of list) {
       const fechaHora = new Date(device.timestamp);
       const formatearFecha = this.formatDateTime(fechaHora);
@@ -26,12 +37,52 @@ class ViewMainPage {
   }
 
   EliminarDevice(id: string) {
-    const miDiv = document.getElementById(id); //va a buscar el elemento por id
-    miDiv.style.display = "none"; // ocultar el div por id
+    // Mostrar un mensaje de confirmación
+    const confirmDelete = window.confirm("¿Estás seguro de eliminar este dispositivo?");
+    
+    if (confirmDelete) {
+      // El usuario confirmó la eliminación, continuar con la eliminación
+      const miDiv = document.getElementById(id);
+      if (miDiv) {
+        // Hacer la solicitud de eliminación solo si el usuario confirmó
+        this.main.api.requestDELETE(`/device/${id}`, this.main);
+        this.main.api.requestGET("device", this.main); // Refresh
+      }
+    } else {
+      // El usuario canceló la eliminación, no hacer nada
+    }
   }
 
   EditarDevice(device) {
-    const miDiv = document.getElementById(device.device_id); //va a buscar el elemento por id
+    // Mostrar un mensaje de confirmación
+    const confirmUpdate = window.confirm("¿Estás seguro de editar este dispositivo?");
+    if (confirmUpdate) {
+      const miDiv = document.getElementById(device.device_id);
+      if (miDiv) {
+        alert('Los campos a editar son:\n\n- Name\n- Key\n- Temperature')
+        
+        const newName = prompt(`Ingrese el nuevo nombre del dispositivo (dejar en blanco para mantener el actual):\nNombre actual: ${device.name}`);
+        if (newName !== null) {
+          device.name = newName || device.name;
+        }
+
+        const newKey = prompt(`Ingrese la nueva clave del dispositivo (dejar en blanco para mantener la actual):\nKey actual: ${device.key}`);
+        if (newKey !== null) {
+          device.key = newKey || device.key;
+        }
+
+        const newTemperature = prompt(`Ingrese la nueva temperatura del dispositivo (deje en blanco para mantener la actual):\nTemperatura actual: ${device.temperature}`);
+        if (newTemperature !== null) {
+          device.temperature = newTemperature || device.temperature;
+        }
+
+        // Actualizar los datos en el servidor utilizando la API de Main con un PUT request
+        this.main.api.requestPUT(`/device/${device.device_id}`, device, this.main);
+        this.main.api.requestGET("device",this.main); //refresh
+      }
+    } else {
+      // El usuario canceló el update, no hacer nada
+    }
   }
 
   CrearBotones(e,deviceDiv, device){
@@ -64,6 +115,7 @@ class ViewMainPage {
   }
 
   agregarNuevoDevice(){
+    alert('Se van a ingresar los siguientes datos para un nuevo dispositivo:\n\n- ID*\n- Name*\n- Key*\n- Temperature(opcional, valor por defecto 0)\n\n * Campos Obligatorios');
     const newDevice = {
       device_id: '',
       name: '',
@@ -71,13 +123,21 @@ class ViewMainPage {
       temperature: 0,
       timestamp: '',
     };
-    newDevice.device_id = this.generarRandomId();
-    newDevice.key = this.generarRandomKey();
-    newDevice.name = "Nuevo Dispositivo " + newDevice.device_id;
-    newDevice.temperature = this.generarRandomTemperatura();
+    newDevice.device_id = prompt('Ingrese el ID del nuevo dispositivo:');
+    newDevice.name = prompt('Ingrese el nombre del nuevo dispositivo:');
+    newDevice.key = prompt('Ingrese la clave del nuevo dispositivo:');
+    //Puede no ingresar el valor de temperatura, sino lo hace se asigna un valor por defecto.
+    const temperaturaInput = prompt('Ingrese la temperatura del nuevo dispositivo (opcional):');
+    if (temperaturaInput !== null && temperaturaInput.trim() !== '') {
+      newDevice.temperature = parseInt(temperaturaInput);
+    }
     newDevice.timestamp = new Date().toString();
-    this.crearEstructuraNewDevice(newDevice);
-    
+  // Comprobar si el usuario canceló el ingreso de datos
+    if (newDevice.device_id === null || newDevice.name === null || newDevice.key === null) {
+      alert('Ingreso de datos cancelado. No se creará un nuevo dispositivo.');
+      return null;
+    } 
+    return newDevice;
   }
 
   crearEstructuraNewDevice(newDevice){
@@ -102,28 +162,6 @@ class ViewMainPage {
       // Crear un botón Editar dentro del div para cada dispositivo
       
 
-  }
-
-  generarRandomKey(){
-    const min = 100000; // El número mínimo de 6 dígitos
-    const max = 999999; // El número máximo de 6 dígitos
-    const keyAleatorioa = Math.floor(Math.random() * (max - min + 1)) + min;
-    return keyAleatorioa.toString();
-  }
-
-  generarRandomId(){
-    const min = 10; // El valor mínimo (inclusive)
-    const max = 90; // El valor máximo (inclusive)
-    const rango = max - min + 1;
-    const idAleatorio = Math.floor(Math.random() * rango) + min;
-    return idAleatorio.toString();
-  }
-
-  generarRandomTemperatura() {
-    const min = -30; // El valor mínimo
-    const max = 45; // El valor máximo
-    const temperaturaAleatoria = Math.floor(Math.random() * (max - min + 1)) + min;
-    return temperaturaAleatoria;
   }
 
   formatDateTime(dateTime: Date): string {

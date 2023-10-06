@@ -9,11 +9,12 @@ interface DeviceInt {
 class Main implements EventListenerObject, GETResponseListener {
 
   api = new API();
-  view = new ViewMainPage();
+  view = new ViewMainPage(this);// le paso "this" como argumento.
+  // lo que permite que ViewMainPage acceda a las propiedades y métodos de Main
   devices:DeviceInt[];
+  
 
   constructor(){
-    
   }
 
   handleGETResponse(status:number, response:string):void {
@@ -38,9 +39,10 @@ class Main implements EventListenerObject, GETResponseListener {
     }
 
     if (target.id=="BotonNewD") {
-      this.view.agregarNuevoDevice();
+      const nuevoDispositivo = this.view.agregarNuevoDevice();
+      this.api.requestPOST('/device', nuevoDispositivo, this);
+      this.api.requestGET("device",this); //refresh
     }
-   
   }
 }
 
