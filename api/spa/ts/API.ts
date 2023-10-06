@@ -67,6 +67,7 @@ class API{
     xhr.onreadystatechange = function () {
       if (xhr.readyState == 4) {
         if (xhr.status == 201) {
+          // 201 Created indica que la modificacion se realizó con éxito
           listener.handleGETResponse(xhr.status, xhr.responseText);
         } else {
           listener.handleGETResponse(xhr.status, null);
