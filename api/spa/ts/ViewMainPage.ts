@@ -140,30 +140,6 @@ class ViewMainPage {
     return newDevice;
   }
 
-  crearEstructuraNewDevice(newDevice){
-    let e: HTMLElement = document.getElementById("devicesList");
-    const fechaHora = new Date(newDevice.timestamp);
-    const formatearFecha = this.formatDateTime(fechaHora);
-    let image = "temp.png";
-       // Crear un div para cada dispositivo
-      const deviceDiv = document.createElement("div");
-      deviceDiv.id = newDevice.device_id; // el div que creamos le asignamos un id
-      deviceDiv.innerHTML += `<li class="collection-item avatar"> 
-            <img src="images/${image}" alt="" class="circle">
-            <span class="title">${newDevice.name}</span>
-            <p>id: ${newDevice.device_id}</p>
-            <p>key: ${newDevice.key}</p>
-            <p>temperature: ${newDevice.temperature}°C</p>
-            <p>timestamp: ${formatearFecha}</p>
-          </li>
-          `; //este li va estar dentro del div
-
-      this.CrearBotones(e,deviceDiv, newDevice);
-      // Crear un botón Editar dentro del div para cada dispositivo
-      
-
-  }
-
   formatDateTime(dateTime: Date): string {
     // Obtener el día con dos digitos
     const dia = dateTime.getDate().toString().padStart(2, "0");
