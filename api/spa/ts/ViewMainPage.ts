@@ -31,7 +31,6 @@ class ViewMainPage {
           `; //este li va estar dentro del div
 
       this.CrearBotones(e,deviceDiv, device)
-      // Crear un botón Editar dentro del div para cada dispositivo
       
     }
   }
