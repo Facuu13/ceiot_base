@@ -47,6 +47,8 @@ Se busca manipular los datos recopilados por los sensores Bluetooth y/o controla
 
 #### 3. Delivery:
 
+**Objetivo:** Introducir el malware en la red de sensores Bluetooth, la PWA y el servidor IoT para iniciar el ataque.
+
 - **T1566.001: Phishing: Spearphishing Attachment:** (https://attack.mitre.org/techniques/T1566/001/)
     - Enviar correos electrónicos para engañar a los operadores del invernadero y que descarguen archivos adjuntos maliciosos que contienen el malware.
 
