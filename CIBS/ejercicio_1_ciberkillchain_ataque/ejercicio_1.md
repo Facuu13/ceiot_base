@@ -15,7 +15,7 @@ Armar una cyberkillchain usando técnicas de la matriz de Att&ck para un escenar
 **Objetivo del ataque:**
 Se busca manipular los datos recopilados por los sensores Bluetooth y/o controlar las funciones de los dispositivos en el invernadero para crear condiciones adversas que dañen los cultivos. Esto podría incluir alterar la temperatura, la humedad o la luz en el invernadero de manera que se perjudique la producción agrícola.
 
-1. Reconocimiento:
+#### 1. Reconocimiento:
 * **Objetivo:** Recopilar información sobre la red de sensores Bluetooth, la PWA y el servidor IoT.
 
 - **T1595.002: Active Scanning (Vulnerability Scanning)** (https://attack.mitre.org/techniques/T1595/002/)
@@ -30,7 +30,7 @@ Se busca manipular los datos recopilados por los sensores Bluetooth y/o controla
 - **T1592.002: Gather Victim Host Information: Software**(https://attack.mitre.org/techniques/T1592/002/)
     - Obtener detalles sobre las versiones de software y aplicaciones utilizadas, permitiendo identificar vulnerabilidades específicas en la PWA y el servidor IoT.
 
-2. Armamento:
+#### 2. Armamento:
 * **Objetivo:** Crear herramientas o malware específico para explotar las vulnerabilidades descubiertas en la red de sensores Bluetooth, la PWA y el servidor IoT.
 
 - **Stage Capabilities: Malware (T1608.001):** (https://attack.mitre.org/techniques/T1608/001/)
