@@ -45,3 +45,10 @@ Se busca manipular los datos recopilados por los sensores Bluetooth y/o controla
 - **Execution through API:** (https://attack.mitre.org/techniques/T0871/)
   - Escribir scripts que interactúen con las APIs de la PWA o el servidor IoT para enviar comandos maliciosos y manipular la operación del invernadero.
 
+#### 3. Delivery:
+
+- **T1566.001: Phishing: Spearphishing Attachment:** (https://attack.mitre.org/techniques/T1566/001/)
+    - Enviar correos electrónicos para engañar a los operadores del invernadero y que descarguen archivos adjuntos maliciosos que contienen el malware.
+
+- **T1204.002: User Execution: Malicious File:** (https://attack.mitre.org/techniques/T1204/002/)
+    - Engañar a los usuarios para que ejecuten un archivo malicioso, como un documento o un archivo ejecutable. 
