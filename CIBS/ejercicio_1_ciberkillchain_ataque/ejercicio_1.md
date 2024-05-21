@@ -31,16 +31,16 @@ Se busca manipular los datos recopilados por los sensores Bluetooth y/o controla
 
 #### 2. Armamento:
 
-- **Stage Capabilities: Malware (T1608.001):** (https://attack.mitre.org/techniques/T1608/001/)
+- **T1608.001: Stage Capabilities: Malware:** (https://attack.mitre.org/techniques/T1608/001/)
   - Desarrollar un malware que se infiltre en los sensores Bluetooth y capture datos sensibles o envíe comandos falsos al servidor IoT.
 
-- **Exploitation for Client Execution (T1203):** (https://attack.mitre.org/techniques/T1203/)
+- **T1203: Exploitation for Client Execution:** (https://attack.mitre.org/techniques/T1203/)
   - Crear un exploit que se active cuando los operadores del invernadero accedan a la PWA, permitiendo al atacante tomar el control de sus dispositivos y la infraestructura IoT.
 
-- **Disk Wipe: Disk Content Wipe:** (https://attack.mitre.org/techniques/T1561/001/)
+- **T1561.001: Disk Wipe: Disk Content Wipe:** (https://attack.mitre.org/techniques/T1561/001/)
   - Desarrollar una herramienta que pueda borrar datos críticos en el servidor IoT o los sensores Bluetooth, interrumpiendo las operaciones del invernadero.
 
-- **Execution through API:** (https://attack.mitre.org/techniques/T0871/)
+- **T0871: Execution through API:** (https://attack.mitre.org/techniques/T0871/)
   - Escribir scripts que interactúen con las APIs de la PWA o el servidor IoT para enviar comandos maliciosos y manipular la operación del invernadero.
 
 #### 3. Delivery:
