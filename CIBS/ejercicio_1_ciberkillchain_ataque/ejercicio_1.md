@@ -78,3 +78,18 @@ Se busca manipular los datos recopilados por los sensores Bluetooth y/o controla
 
 - **T1102: Web Service:** (https://attack.mitre.org/techniques/T1102/)
   - Utilizar servicios web para comunicarse de forma encubierta con los sistemas comprometidos.
+
+- **T1071.001: Application Layer Protocol: Web Protocols:** (https://attack.mitre.org/techniques/T1071/001/)
+  - Utilizar protocolos web como HTTP/S para comunicarse con los sistemas comprometidos.
+
+
+#### 7. Accion
+
+- **T1490: Inhibit System Recovery:** (https://attack.mitre.org/techniques/T1490/)
+  - Eliminar o corromper copias de seguridad del servidor IoT y la PWA para dificultar la restauración de los sistemas.
+
+- **T1491: Defacement:**(https://attack.mitre.org/techniques/T1491/)
+  - Modificar la interfaz de usuario de la PWA para mostrar información falsa sobre el estado del invernadero.
+
+- **T1485: Data Destruction::** (https://attack.mitre.org/techniques/T1485/)
+  - Borrar o corromper datos críticos en el servidor IoT, incluyendo configuraciones de sensores y registros, para interrumpir la operación del invernadero y causar pérdida de datos.
