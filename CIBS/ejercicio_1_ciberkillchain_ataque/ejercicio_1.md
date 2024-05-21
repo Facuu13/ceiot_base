@@ -75,3 +75,6 @@ Se busca manipular los datos recopilados por los sensores Bluetooth y/o controla
 
 
 #### 6. Comando y Control
+
+- **T1102: Web Service:** (https://attack.mitre.org/techniques/T1102/)
+  - Utilizar servicios web para comunicarse de forma encubierta con los sistemas comprometidos.
