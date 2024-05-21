@@ -54,3 +54,17 @@ Se busca manipular los datos recopilados por los sensores Bluetooth y/o controla
 
 - **T1204.002: User Execution: Malicious File:** (https://attack.mitre.org/techniques/T1204/002/)
     - Engañar a los usuarios para que ejecuten un archivo malicioso, como un documento o un archivo ejecutable. 
+
+#### 4. Explotación:
+
+**Objetivo:** Aprovechar las vulnerabilidades descubiertas en la red de sensores Bluetooth, la PWA y el servidor IoT para obtener acceso no autorizado.
+
+- **T1201: Password Policy Discovery:** (https://attack.mitre.org/techniques/T1201/)
+  - Obtener información sobre las políticas de contraseñas utilizadas en la PWA y el servidor IoT para identificar debilidades, como contraseñas débiles o expiradas.
+
+- **T1110.001: Brute Force: Password Guessing:** (https://attack.mitre.org/techniques/T1110/001/)
+  - Usar herramientas automatizadas para  adivinar las contraseñas de cuentas de usuario en la PWA o el servidor IoT.
+
+- **T1212: Exploitation for Credential Access:** (https://attack.mitre.org/techniques/T1212/)
+  - Explotar vulnerabilidades en el software de la PWA o el servidor IoT para obtener acceso a las credenciales almacenadas.
+
