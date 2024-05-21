@@ -91,3 +91,6 @@ Se busca manipular los datos recopilados por los sensores Bluetooth y/o controla
 
 - **T1485: Data Destruction::** (https://attack.mitre.org/techniques/T1485/)
   - Borrar o corromper datos críticos en el servidor IoT, incluyendo configuraciones de sensores y registros, para interrumpir la operación del invernadero y causar pérdida de datos.
+
+ - **T1565.001: Data Manipulation: Stored Data Manipulation** (https://attack.mitre.org/techniques/T1565/001/)
+    - Modificar los datos recopilados por los sensores Bluetooth, para que los operadores del invernadero tomen decisiones basadas en información incorrecta, lo que podría dañar las cosechas o la operación del invernadero.
