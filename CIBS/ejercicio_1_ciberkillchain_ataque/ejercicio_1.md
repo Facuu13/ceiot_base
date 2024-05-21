@@ -68,3 +68,12 @@ Se busca manipular los datos recopilados por los sensores Bluetooth y/o controla
 - **T1212: Exploitation for Credential Access:** (https://attack.mitre.org/techniques/T1212/)
   - Explotar vulnerabilidades en el software de la PWA o el servidor IoT para obtener acceso a las credenciales almacenadas.
 
+
+#### 5. Instalacion:
+
+- **T1543.001: Create or Modify System Process: Launch Agent:** (https://attack.mitre.org/techniques/T1543/001/)
+  - Crear un agente de inicio en el servidor IoT que garantice que el malware se ejecute de manera automatica cada vez que se inicie el sistema.
+
+- **T1053.005: Scheduled Task/Job: Scheduled Task:** (https://attack.mitre.org/techniques/T1053/005/)
+  - Programar una tarea para ejecutar el malware en el servidor IoT en momentos especificos.
+
