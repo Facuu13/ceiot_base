@@ -16,7 +16,6 @@ Armar una cyberkillchain usando técnicas de la matriz de Att&ck para un escenar
 Se busca manipular los datos recopilados por los sensores Bluetooth y/o controlar las funciones de los dispositivos en el invernadero para crear condiciones adversas que dañen los cultivos. Esto podría incluir alterar la temperatura, la humedad o la luz en el invernadero de manera que se perjudique la producción agrícola.
 
 #### 1. Reconocimiento:
-* **Objetivo:** Recopilar información sobre la red de sensores Bluetooth, la PWA y el servidor IoT.
 
 - **T1595.002: Active Scanning (Vulnerability Scanning)** (https://attack.mitre.org/techniques/T1595/002/)
     - Para identificar dispositivos y servicios expuestos en la red.
@@ -31,7 +30,6 @@ Se busca manipular los datos recopilados por los sensores Bluetooth y/o controla
     - Obtener detalles sobre las versiones de software y aplicaciones utilizadas, permitiendo identificar vulnerabilidades específicas en la PWA y el servidor IoT.
 
 #### 2. Armamento:
-* **Objetivo:** Crear herramientas o malware específico para explotar las vulnerabilidades descubiertas en la red de sensores Bluetooth, la PWA y el servidor IoT.
 
 - **Stage Capabilities: Malware (T1608.001):** (https://attack.mitre.org/techniques/T1608/001/)
   - Desarrollar un malware que se infiltre en los sensores Bluetooth y capture datos sensibles o envíe comandos falsos al servidor IoT.
@@ -57,8 +55,6 @@ Se busca manipular los datos recopilados por los sensores Bluetooth y/o controla
 
 #### 4. Explotación:
 
-**Objetivo:** Aprovechar las vulnerabilidades descubiertas en la red de sensores Bluetooth, la PWA y el servidor IoT para obtener acceso no autorizado.
-
 - **T1201: Password Policy Discovery:** (https://attack.mitre.org/techniques/T1201/)
   - Obtener información sobre las políticas de contraseñas utilizadas en la PWA y el servidor IoT para identificar debilidades, como contraseñas débiles o expiradas.
 
@@ -77,3 +73,5 @@ Se busca manipular los datos recopilados por los sensores Bluetooth y/o controla
 - **T1053.005: Scheduled Task/Job: Scheduled Task:** (https://attack.mitre.org/techniques/T1053/005/)
   - Programar una tarea para ejecutar el malware en el servidor IoT en momentos especificos.
 
+
+#### 6. Comando y Control
