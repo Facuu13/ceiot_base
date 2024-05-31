@@ -13,7 +13,7 @@ Armar una cyberkillchain usando técnicas de la matriz de Att&ck para un escenar
 ### ATAQUE: Sabotaje de las Condiciones del Invernadero
 
 **Objetivo del ataque:**
-Se busca manipular los datos recopilados por los sensores Bluetooth y/o controlar las funciones de los dispositivos en el invernadero para crear condiciones adversas que dañen los cultivos. Esto podría incluir alterar la temperatura, la humedad o la luz en el invernadero de manera que se perjudique la producción agrícola.
+Se busca manipular los datos recopilados por los sensores Bluetooth y/o controlar las funciones de los dispositivos en el invernadero para crear condiciones adversas que dañen los cultivos. Esto podría incluir alterar la temperatura, la humedad o la luz en el invernadero de manera que se perjudique la producción agrícola. Al dañar la producción del invernadero objetivo, los competidores pueden ganar económicamente al vender más de sus propios productos y aprovechar la oportunidad para aumentar los precios debido a la menor oferta en el mercado. 
 
 #### 1. Reconocimiento:
 
