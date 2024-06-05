@@ -16,25 +16,31 @@ Proteger la integridad y disponibilidad de los datos de los sensores Bluetooth y
 #### 1. Acción
 
 **T1565.001: Data Manipulation: Stored Data Manipulation**  
+
 **Defensa:** **Data Backup**  https://attack.mitre.org/mitigations/M1053/
 
 **Descripción:** Hacer copias de seguridad de los datos importantes con regularidad y guardarlas en lugares seguros. Si alguien intenta manipular los datos, podemos restaurar los datos a su forma original usando estas copias.
 
 #### 2. Comando y Control
 
-**T1102: Web Service**  
+**T1102: Web Service**
+
 **Defensa:** **Network Intrusion Prevention**  https://attack.mitre.org/mitigations/M1031/
+
 **Descripción:** Configurar sistemas para detectar y bloquear intentos de comunicación con servidores de control remoto maliciosos. Observar el tráfico de internet para detectar actividades extrañas.
 
 #### 3. Instalación
 
 **T1053.005: Scheduled Task/Job: Scheduled Task**  
+
 **Defensa:** **Audit**  https://attack.mitre.org/mitigations/M1047/
+
 **Descripción:** Revisar los registros de actividad regularmente para encontrar si alguien ha creado tareas automáticas sin permiso. Si detectamos algo extraño, alertaremos a los administradores.
 
 #### 5. Delivery
 
 **T1566.001: Phishing: Spearphishing Attachment**  
+
 **Defensa:** **User Training**  https://attack.mitre.org/mitigations/M1017/
 
 **Descripción:** Enseñar a los usuarios cómo reconocer y tratar con correos electrónicos peligrosos. Esto incluye saber cómo identificar enlaces o archivos adjuntos maliciosos.
