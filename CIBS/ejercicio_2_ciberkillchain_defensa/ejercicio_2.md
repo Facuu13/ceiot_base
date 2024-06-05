@@ -53,7 +53,7 @@ Proteger la integridad y disponibilidad de los datos de los sensores Bluetooth y
 
 **Descripción:** Enseñar a los usuarios cómo reconocer y tratar con correos electrónicos peligrosos. Esto incluye saber cómo identificar enlaces o archivos adjuntos maliciosos.
 
-#### 2. Armamento:
+#### 6. Armamento:
 
 **T1583: Acquire Infrastructure:**  
 
@@ -61,7 +61,7 @@ Proteger la integridad y disponibilidad de los datos de los sensores Bluetooth y
 
 **Descripción:** Capacitar a los usuarios para que reconozcan páginas web falsas que intentan robar credenciales. Enseñarles a verificar cuidadosamente las URLs y a evitar hacer clic en enlaces sospechosos.
 
-#### 1. Reconocimiento:
+#### 7. Reconocimiento:
 
 
 
