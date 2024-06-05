@@ -17,12 +17,14 @@ Proteger la integridad y disponibilidad de los datos de los sensores Bluetooth y
 
 **T1565.001: Data Manipulation: Stored Data Manipulation**  
 **Defensa:** **Data Backup**  https://attack.mitre.org/mitigations/M1053/
+
 **Descripción:** Implementar políticas de respaldo y recuperación de datos para asegurarse de que las copias de seguridad de los datos críticos se realicen regularmente y se almacenen en ubicaciones seguras. Esto permite restaurar los datos a su estado original en caso de manipulación maliciosa.
 
 #### 5. Delivery
 
 **T1566.001: Phishing: Spearphishing Attachment**  
 **Defensa:** **User Training**  https://attack.mitre.org/mitigations/M1017/
+
 **Descripción:** Realizar capacitaciones periódicas sobre reconocimiento y manejo seguro de correos electrónicos sospechosos. Enseñar a los usuarios cómo identificar intentos de phishing y cómo responder adecuadamente.
 
 
