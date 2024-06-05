@@ -63,5 +63,10 @@ Proteger la integridad y disponibilidad de los datos de los sensores Bluetooth y
 
 #### 7. Reconocimiento:
 
+**T1595.002: Active Scanning (Vulnerability Scanning)**
+
+**Defensa:** **Filter Network Traffic**  https://attack.mitre.org/mitigations/M1037/
+
+**Descripción:** Usar firewalls y sistemas de prevención de intrusiones para bloquear el tráfico no autorizado y escaneos de vulnerabilidades. Esto ayuda a proteger la red del invernadero de ser explorada por atacantes.
 
 
