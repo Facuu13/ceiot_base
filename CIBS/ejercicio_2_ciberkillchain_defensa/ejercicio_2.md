@@ -41,7 +41,7 @@ Proteger la integridad y disponibilidad de los datos de los sensores Bluetooth y
 
 **Utilización de credenciales obtenidas para acceder al sistema de gestión del invernadero:** 
 
-**Defensa:** ** Autenticación Multifactor (MFA)**  https://attack.mitre.org/mitigations/M1032/
+**Defensa: Autenticación Multifactor (MFA)**  https://attack.mitre.org/mitigations/M1032/
 
 **Descripción:** Requerir que los usuarios ingresen un segundo factor de autenticación, además de su contraseña, para acceder al sistema de gestión del invernadero. Esto hace que sea más difícil para los atacantes utilizar credenciales robadas.
 
