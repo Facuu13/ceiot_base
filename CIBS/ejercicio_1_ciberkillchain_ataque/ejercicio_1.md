@@ -31,11 +31,8 @@ Se busca manipular los datos recopilados por los sensores Bluetooth y/o controla
 
 #### 2. Armamento:
 
-- **T1203: Exploitation for Client Execution:** (https://attack.mitre.org/techniques/T1203/)
-  - Crear un exploit que se active cuando los operadores del invernadero accedan a la PWA, permitiendo al atacante tomar el control de sus dispositivos y la infraestructura IoT.
-
-- **T1561.001: Disk Wipe: Disk Content Wipe:** (https://attack.mitre.org/techniques/T1561/001/)
-  - Desarrollar una herramienta que pueda borrar datos críticos en el servidor IoT o los sensores Bluetooth, interrumpiendo las operaciones del invernadero.
+- **T1583: Acquire Infrastructure:** (https://attack.mitre.org/techniques/T1583/)
+  - Crear una landing page identica a la de la PWA para que la persona atacada ingrese sus credenciales.
 
 - **T0871: Execution through API:** (https://attack.mitre.org/techniques/T0871/)
   - Escribir scripts que interactúen con las APIs de la PWA o el servidor IoT para enviar comandos maliciosos y manipular la operación del invernadero.
@@ -50,15 +47,10 @@ Se busca manipular los datos recopilados por los sensores Bluetooth y/o controla
 
 #### 4. Explotación:
 
-- **T1201: Password Policy Discovery:** (https://attack.mitre.org/techniques/T1201/)
-  - Obtener información sobre las políticas de contraseñas utilizadas en la PWA y el servidor IoT para identificar debilidades, como contraseñas débiles o expiradas.
+- **Utilización de credenciales obtenidas para acceder al sistema de gestión del invernadero:** Usamos las credenciales obtenidas para ingresar al sistema de gestión del invernadero, como la PWA o el servidor IoT.
 
-- **T1110.001: Brute Force: Password Guessing:** (https://attack.mitre.org/techniques/T1110/001/)
-  - Usar herramientas automatizadas para  adivinar las contraseñas de cuentas de usuario en la PWA o el servidor IoT.
-
-- **T1212: Exploitation for Credential Access:** (https://attack.mitre.org/techniques/T1212/)
-  - Explotar vulnerabilidades en el software de la PWA o el servidor IoT para obtener acceso a las credenciales almacenadas.
-
+- **Interferencia con la programación y funcionamiento del sistema de riego:** 
+ Una vez dentro del sistema, el atacante puede ejecutar acciones maliciosas, como desactivar el riego en momentos críticos o provocar sobre-irrigación, dañando así los cultivos.
 
 #### 5. Instalacion:
 
