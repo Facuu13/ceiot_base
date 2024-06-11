@@ -40,17 +40,14 @@ Se busca manipular los datos recopilados por los sensores Bluetooth y/o controla
 #### 3. Delivery:
 
 - **T1566.001: Phishing: Spearphishing Attachment:** (https://attack.mitre.org/techniques/T1566/001/)
-    - Enviar correos electrónicos para engañar a los operadores del invernadero y que descarguen archivos adjuntos maliciosos que contienen el malware.
+    - Enviar correos electrónicos de phishing a los operadores del invernadero y que descarguen archivos adjuntos maliciosos que contienen el malware.
+
+
+#### 4. Explotación:
 
 - **T1204.002: User Execution: Malicious File:** (https://attack.mitre.org/techniques/T1204/002/)
     - Engañar a los usuarios para que ejecuten un archivo malicioso, como un documento o un archivo ejecutable. 
 
-#### 4. Explotación:
-
-- **Utilización de credenciales obtenidas para acceder al sistema de gestión del invernadero:** Usamos las credenciales obtenidas para ingresar al sistema de gestión del invernadero, como la PWA o el servidor IoT.
-
-- **Interferencia con la programación y funcionamiento del sistema de riego:** 
- Una vez dentro del sistema, el atacante puede ejecutar acciones maliciosas, como desactivar el riego en momentos críticos o provocar sobre-irrigación, dañando así los cultivos.
 
 #### 5. Instalacion:
 
@@ -60,6 +57,7 @@ Se busca manipular los datos recopilados por los sensores Bluetooth y/o controla
 - **T1053.005: Scheduled Task/Job: Scheduled Task:** (https://attack.mitre.org/techniques/T1053/005/)
   - Programar una tarea para ejecutar el malware en el servidor IoT en momentos especificos.
 
+- **Utilización de credenciales obtenidas para acceder al sistema de gestión del invernadero:** Usamos las credenciales obtenidas para ingresar al sistema de gestión del invernadero, como la PWA o el servidor IoT.
 
 #### 6. Comando y Control
 
