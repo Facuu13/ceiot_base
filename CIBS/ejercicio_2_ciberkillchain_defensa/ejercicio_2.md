@@ -37,21 +37,27 @@ Proteger la integridad y disponibilidad de los datos de los sensores Bluetooth y
 
 **Descripción:** Revisar los registros de actividad regularmente para encontrar si alguien ha creado tareas automáticas sin permiso. Si detectamos algo extraño, alertaremos a los administradores.
 
-#### 4. Explotación:
-
 **Utilización de credenciales obtenidas para acceder al sistema de gestión del invernadero:** 
 
 **Defensa: Autenticación Multifactor (MFA)**  https://attack.mitre.org/mitigations/M1032/
 
 **Descripción:** Requerir que los usuarios ingresen un segundo factor de autenticación, además de su contraseña, para acceder al sistema de gestión del invernadero. Esto hace que sea más difícil para los atacantes utilizar credenciales robadas.
 
+#### 4. Explotación:
+
+**T1204.002: User Execution: Malicious File**  
+
+**Defensa:** **Execution Prevention** (https://attack.mitre.org/mitigations/M1038)
+
+**Descripción:** Bloquear la ejecución de código en el sistema mediante el control de aplicaciones y/o el bloqueo de scripts. Esto puede prevenir la ejecución de archivos maliciosos no autorizados.
+
 #### 5. Delivery
 
 **T1566.001: Phishing: Spearphishing Attachment**  
 
-**Defensa:** **User Training**  https://attack.mitre.org/mitigations/M1017/
+**Defensa:** **Restrict Web-Based Content**  https://attack.mitre.org/mitigations/M1021
 
-**Descripción:** Enseñar a los usuarios cómo reconocer y tratar con correos electrónicos peligrosos. Esto incluye saber cómo identificar enlaces o archivos adjuntos maliciosos.
+**Descripción:** Bloquear la descarga de archivos adjuntos desconocidos (como .scr, .exe) y restringir el acceso a ciertos sitios web, así como el uso de Javascript y extensiones del navegador.
 
 #### 6. Armamento:
 
